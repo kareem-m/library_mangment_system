@@ -6,7 +6,12 @@ public class Main {
         System.out.println("Welcome to the Library Management System!");
         System.out.print("Enter the maximum number of books the library can store: ");
         int maxBooks = sc.nextInt();
-        sc.nextLine();
+
+        while (maxBooks == 0) {
+            System.out.println("Library can't be empty");
+            System.out.print("Enter the maximum number of books the library can store: ");
+            maxBooks = sc.nextInt();
+        }
 
         String[] bookTitles = new String[maxBooks];
         String[] bookDescriptions = new String[maxBooks];
@@ -31,17 +36,15 @@ public class Main {
             sc.nextLine();
 
             switch (choice) {
-                case 1: // Add a book
+                case 1: // Add
                     if (bookCount < maxBooks) {
                         System.out.print("Enter the title of the book: ");
                         String newTitle = sc.nextLine();
 
-                        if (newTitle.isEmpty()) {
-                            while (newTitle.isEmpty()) {
-                                System.out.println("The title can't be empty");
-                                System.out.print("Enter the title of the book: ");
-                                newTitle = sc.nextLine();
-                            }
+                        while (newTitle.isEmpty()) {
+                            System.out.println("The title can't be empty");
+                            System.out.print("Enter the title of the book: ");
+                            newTitle = sc.nextLine();
                         }
 
                         System.out.print("Enter the description of the book: ");
@@ -71,7 +74,7 @@ public class Main {
                     }
                     break;
 
-                case 2: // Search for a book
+                case 2: // Search
                     if (bookCount == 0) {
                         System.out.println("No books in the library to search.");
                         break;
@@ -83,6 +86,7 @@ public class Main {
                     if (searchType.equals("title")) {
                         System.out.print("Enter the book title: ");
                         String title = sc.nextLine();
+                        boolean found = false;
                         for (int i = 0; i < bookCount; i++) {
                             if (bookTitles[i].equals(title)) {
                                 System.out.println("\nBook ID: " + (i + 1));
@@ -93,10 +97,11 @@ public class Main {
                                 } else if (bookIssued[i] == true) {
                                     System.out.println("Status: Issued");
                                 }
-                            } else {
-                                System.out.println("No book in the library with this name");
-                                break;
+                                found = true;
                             }
+                        }
+                        if (found == false) {
+                            System.out.println("No book in the library with this name");
                         }
                     } else if (searchType.equals("ID") || searchType.equals("id")) {
                         System.out.print("Enter the book ID: ");
@@ -119,7 +124,7 @@ public class Main {
                     }
                     break;
 
-                case 3: // Issue a book
+                case 3: // Issue
                     if (bookCount == 0) {
                         System.out.println("No books in the library to issue.");
                         break;
@@ -142,7 +147,7 @@ public class Main {
                     }
                     break;
 
-                case 4: // Return a book
+                case 4: // Return
                     if (bookCount == 0) {
                         System.out.println("No books in the library to return.");
                         break;
@@ -165,7 +170,7 @@ public class Main {
                     }
                     break;
 
-                case 5: // Delete a book
+                case 5: // Delete
                     if (bookCount == 0) {
                         System.out.println("No books in the library to delete.");
                         break;
@@ -189,7 +194,7 @@ public class Main {
                     }
                     break;
 
-                case 6: // Edit a book
+                case 6: // Edit
                     if (bookCount == 0) {
                         System.out.println("No books in the library to edit.");
                         break;
@@ -211,7 +216,7 @@ public class Main {
                     }
                     break;
 
-                case 7: // View all books
+                case 7: // View
                     if (bookCount == 0) {
                         System.out.println("No books in the library.");
                         break;
